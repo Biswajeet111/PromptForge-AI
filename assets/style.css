@@ -117,7 +117,9 @@ div[data-baseweb="select"] > div {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+[data-testid="stCodeBlock"] pre,
 [data-testid="stCodeBlock"] code {
     white-space: pre-wrap !important;
-    word-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
 }
