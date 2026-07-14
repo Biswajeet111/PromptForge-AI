@@ -4,7 +4,9 @@ import pandas as pd
 from src.core.optimizer import build_optimization_prompt
 from src.ai.gemini_client import generate_response, analyze_prompt_quality
 from src.core.history import save_prompt, load_history, clear_history, toggle_favorite
+from src.core.exporter import generate_pdf, generate_docx
 from src.utils import load_css
+import difflib
 
 # ======================================================
 # PAGE CONFIGURATION
@@ -205,7 +207,7 @@ if optimize:
 
 with right_col:
     if st.session_state.optimized_result:
-        tabs = st.tabs(["🚀 Optimized Prompt", "📊 Quality Analysis"])
+        tabs = st.tabs(["🚀 Optimized Prompt", "📊 Quality Analysis", "⚖️ Comparison"])
         
         with tabs[0]:
             with st.container(border=True):
@@ -214,13 +216,31 @@ with right_col:
                 # Using st.code provides an automatic "Copy to clipboard" button
                 st.code(st.session_state.optimized_result, language="markdown")
 
-                st.download_button(
-                    label="📥 Download Prompt",
-                    data=st.session_state.optimized_result,
-                    file_name="optimized_prompt.txt",
-                    mime="text/plain",
-                    use_container_width=True
-                )
+                dl_col1, dl_col2, dl_col3 = st.columns(3)
+                with dl_col1:
+                    st.download_button(
+                        label="📄 TXT",
+                        data=st.session_state.optimized_result,
+                        file_name="optimized_prompt.txt",
+                        mime="text/plain",
+                        use_container_width=True
+                    )
+                with dl_col2:
+                    st.download_button(
+                        label="📄 PDF",
+                        data=generate_pdf(st.session_state.optimized_result),
+                        file_name="optimized_prompt.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+                with dl_col3:
+                    st.download_button(
+                        label="📄 DOCX",
+                        data=generate_docx(st.session_state.optimized_result),
+                        file_name="optimized_prompt.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        use_container_width=True
+                    )
 
                 st.divider()
                 st.subheader("📊 Prompt Statistics")
@@ -275,6 +295,23 @@ with right_col:
                             st.markdown(f"- {fmt}")
             else:
                 st.info("Optimize the prompt to see its quality analysis.")
+                
+        with tabs[2]:
+            with st.container(border=True):
+                st.subheader("Prompt Comparison")
+                st.caption("Green highlights show what Gemini added. Red shows what was removed.")
+                
+                original_lines = st.session_state.current_prompt.splitlines()
+                optimized_lines = st.session_state.optimized_result.splitlines()
+                
+                diff = difflib.HtmlDiff().make_table(original_lines, optimized_lines, "Original", "Optimized")
+                
+                # Make the diff table fit the dark theme better
+                diff = diff.replace('style="', 'style="color: #e2e8f0; ')
+                diff = diff.replace('nowrap="nowrap"', '')
+                
+                st.components.v1.html(f"<div style='background-color: transparent; overflow-x: auto;'>{diff}</div>", height=500, scrolling=True)
+
     else:
         with st.container(border=True):
             st.info("Enter a prompt on the left and click **✨ Optimize Prompt** to see the magic!")

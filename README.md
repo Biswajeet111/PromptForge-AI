@@ -11,22 +11,18 @@
 
 **PromptForge AI** is a professional-grade prompt engineering workspace. It takes your raw ideas and transforms them into highly effective, structured, and optimized prompts tailored to specific tasks and tones. Equipped with a **Prompt Quality Analyzer**, it not only optimizes your prompts but also teaches you how to write better ones by evaluating clarity, structure, and context.
 
+<div align="center">
+  <img src="assets/home.png.png" alt="PromptForge AI Home Screen" style="border-radius: 12px; max-width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-top: 15px; margin-bottom: 20px;"/>
+</div>
+
 ## ✨ Key Features
 
-- **🧠 Intelligent Optimization**: Uses Google's **Gemini 2.5 Flash** model to refine and structure your prompts.
-- **📊 Prompt Quality Analyzer (Phase 7)**:
-  - **Overall Score** evaluation.
-  - Granular metrics: **Clarity**, **Structure**, **Context**, and **Specificity**.
-  - **AI Suggestions**: Provides actionable improvement tips, identifies missing information, and offers better formatting techniques.
-- **⚙️ Customization**: Configure Task Type (General, Writing, Coding, etc.), Tone, Detail Level, and use predefined Templates.
-- **📜 Smart History**: 
-  - Automatically saves all your optimizations.
-  - **Clickable History Items**: Load previous prompts with a single click.
-  - **Search & Favorites**: Easily find past prompts or star your best ones for quick access.
-- **📋 Seamless UX**: 
-  - Beautiful, modern card-based UI.
-  - One-click native **Copy to Clipboard**.
-  - Download optimized prompts as `.txt` files.
+- ⭐ **AI Prompt Quality Analyzer**: Get instant scores on Clarity, Structure, Context, and Specificity, plus actionable AI suggestions.
+- 📋 **One-click Copy Button**: Instantly copy your optimized prompts to your clipboard.
+- 📄 **PDF & DOCX Export**: Download your optimized prompts in professional formats (TXT, PDF, DOCX).
+- 🔍 **Advanced History (search + filter + favorites)**: Never lose a prompt again. Smart history saves automatically with instant refresh.
+- 📊 **Prompt Comparison (Before vs After)**: A dedicated color-coded Diff viewer to see exactly what the AI changed.
+- ⚙️ **Customization**: Configure Task Type, Tone, Detail Level, and use predefined Templates.
 
 ## 🛠️ Tech Stack
 
