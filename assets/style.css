@@ -1,18 +1,118 @@
-.main {
-    padding-top: 1rem;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+/* Base Styles */
+html, body, [class*="css"] {
+    font-family: 'Outfit', sans-serif !important;
 }
 
+/* App Background (Dark Theme with subtle gradient) */
+.stApp {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: #e2e8f0;
+}
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background-color: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hide Streamlit elements */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {background: transparent !important;}
+
+/* Container / Cards (Glassmorphism) */
+[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Button Styling */
 .stButton>button {
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+    color: white !important;
+    border: none !important;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    height: 50px;
     width: 100%;
-    height: 55px;
-    font-size: 18px;
-    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
-textarea {
-    border-radius: 12px;
+.stButton>button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
 }
 
-.block-container {
-    padding-top: 2rem;
+.stButton>button:active {
+    transform: scale(0.98);
+}
+
+/* Inputs & Textareas */
+.stTextArea>div>div>textarea, .stTextInput>div>div>input {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #f8fafc !important;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 1rem;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.stTextArea>div>div>textarea:focus, .stTextInput>div>div>input:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Selectbox styling */
+div[data-baseweb="select"] > div {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px;
+}
+
+/* Progress Bars */
+.stProgress > div > div > div > div {
+    background: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+/* Download button specifics */
+.stDownloadButton>button {
+    background: transparent !important;
+    border: 1px solid #6366f1 !important;
+    color: #6366f1 !important;
+    box-shadow: none;
+}
+
+.stDownloadButton>button:hover {
+    background: rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Metrics */
+[data-testid="stMetricValue"] {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #8b5cf6;
+}
+
+/* Code Output */
+[data-testid="stCodeBlock"] {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }

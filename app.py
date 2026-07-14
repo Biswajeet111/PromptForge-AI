@@ -39,13 +39,19 @@ st.markdown(
 # HEADER
 # ======================================================
 
-st.markdown("""
-# 🚀 PromptForge AI
-
-### AI Powered Prompt Optimization Studio
-
-Optimize your prompts using intelligent prompt engineering powered by Google Gemini.
-""")
+col1, col2 = st.columns([1, 6])
+with col1:
+    try:
+        st.image("assets/logo.png", use_container_width=True)
+    except:
+        st.write("🚀")
+        
+with col2:
+    st.markdown("""
+    # PromptForge AI
+    ### AI Powered Prompt Optimization Studio
+    Optimize your prompts using intelligent prompt engineering powered by Google Gemini.
+    """)
 
 st.divider()
 
