@@ -7,6 +7,7 @@ from src.core.history import save_prompt, load_history, clear_history, toggle_fa
 from src.core.exporter import generate_pdf, generate_docx
 from src.utils import load_css
 import difflib
+import json
 
 # ======================================================
 # PAGE CONFIGURATION
@@ -21,6 +22,22 @@ st.set_page_config(
 # ======================================================
 # STATE MANAGEMENT
 # ======================================================
+
+def extract_prompt(raw_text: str) -> str:
+    """Helper to extract optimized prompt from JSON string."""
+    try:
+        # Check if it looks like JSON
+        start = raw_text.find('{')
+        end = raw_text.rfind('}') + 1
+        if start != -1 and end != 0:
+            clean_json = raw_text[start:end]
+            parsed = json.loads(clean_json)
+            return parsed.get("optimized_prompt", raw_text)
+    except Exception:
+        pass
+    return raw_text
+
+
 if "current_prompt" not in st.session_state:
     st.session_state.current_prompt = ""
 if "optimized_result" not in st.session_state:
@@ -125,7 +142,8 @@ else:
             snippet = f"{row['original_prompt'][:35]}..." if len(row["original_prompt"]) > 35 else row['original_prompt']
             if st.button(snippet, key=f"hist_{row['timestamp']}", use_container_width=True):
                 st.session_state.current_prompt = row['original_prompt']
-                st.session_state.optimized_result = row.get('optimized_prompt', '')
+                raw_opt = row.get('optimized_prompt', '')
+                st.session_state.optimized_result = extract_prompt(raw_opt)
                 st.session_state.analysis_data = None
                 st.rerun()
                 
@@ -186,14 +204,17 @@ if optimize:
             )
 
             response = generate_response(optimized_instruction)
-            st.session_state.optimized_result = response
+            
+            final_optimized_prompt = extract_prompt(response)
+
+            st.session_state.optimized_result = final_optimized_prompt
             
             analysis = analyze_prompt_quality(st.session_state.current_prompt)
             st.session_state.analysis_data = analysis
 
             save_prompt(
                 original=st.session_state.current_prompt,
-                optimized=response,
+                optimized=final_optimized_prompt,
                 task=task_type,
                 tone=tone,
                 detail=detail_level
@@ -207,7 +228,7 @@ if optimize:
 
 with right_col:
     if st.session_state.optimized_result:
-        tabs = st.tabs(["🚀 Optimized Prompt", "📊 Quality Analysis", "⚖️ Comparison"])
+        tabs = st.tabs(["🚀 Optimized Prompt", "📊 Quality Analysis", "💡 Suggestions", "⚖️ Comparison"])
         
         with tabs[0]:
             with st.container(border=True):
@@ -278,8 +299,13 @@ with right_col:
                         st.caption("Specificity")
                         st.progress(safe_progress(data.get("specificity")), text=f"{data.get('specificity', 0)}/100")
                     
-                    st.divider()
-                    
+            else:
+                st.info("Optimize the prompt to see its quality analysis.")
+                
+        with tabs[2]:
+            if st.session_state.analysis_data:
+                data = st.session_state.analysis_data
+                with st.container(border=True):
                     st.subheader("💡 AI Suggestions")
                     
                     with st.expander("Improvement Suggestions", expanded=True):
@@ -294,9 +320,9 @@ with right_col:
                         for fmt in data.get("better_formatting_tips", []):
                             st.markdown(f"- {fmt}")
             else:
-                st.info("Optimize the prompt to see its quality analysis.")
+                st.info("Optimize the prompt to see AI suggestions.")
                 
-        with tabs[2]:
+        with tabs[3]:
             with st.container(border=True):
                 st.subheader("Prompt Comparison")
                 st.caption("Green highlights show what Gemini added. Red shows what was removed.")
