@@ -332,11 +332,44 @@ with right_col:
                 
                 diff = difflib.HtmlDiff().make_table(original_lines, optimized_lines, "Original", "Optimized")
                 
-                # Make the diff table fit the dark theme better
-                diff = diff.replace('style="', 'style="color: #e2e8f0; ')
+                # Make the diff table fit the dark theme better and wrap text properly
                 diff = diff.replace('nowrap="nowrap"', '')
                 
-                st.components.v1.html(f"<div style='background-color: transparent; overflow-x: auto;'>{diff}</div>", height=500, scrolling=True)
+                diff_style = """
+                <style>
+                    table.diff {
+                        width: 100%;
+                        border-collapse: collapse;
+                        color: #e2e8f0;
+                        font-family: 'Outfit', sans-serif;
+                    }
+                    table.diff th, table.diff td {
+                        padding: 10px;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        word-break: break-word;
+                    }
+                    table.diff td.diff_add {
+                        background-color: rgba(34, 197, 94, 0.3);
+                        color: #ffffff;
+                    }
+                    table.diff td.diff_sub {
+                        background-color: rgba(239, 68, 68, 0.3);
+                        color: #ffffff;
+                    }
+                    table.diff td.diff_chg {
+                        background-color: rgba(234, 179, 8, 0.3);
+                        color: #ffffff;
+                    }
+                    table.diff th {
+                        background-color: rgba(255, 255, 255, 0.05);
+                        text-align: center;
+                    }
+                    .diff_next { display: none; }
+                </style>
+                """
+                
+                html_str = f"<div style='background-color: transparent;'>{diff_style}{diff}</div>"
+                st.components.v1.html(html_str, height=500, scrolling=True)
 
     else:
         with st.container(border=True):
