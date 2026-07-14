@@ -234,8 +234,18 @@ with right_col:
             with st.container(border=True):
                 st.subheader("Optimized Result")
                 
-                # Using st.code provides an automatic "Copy to clipboard" button
-                st.code(st.session_state.optimized_result, language="markdown")
+                # Use markdown with custom HTML for perfect paragraph wrapping and a native copy button
+                escaped_text = st.session_state.optimized_result.replace('`', '\\`').replace('\\', '\\\\')
+                
+                custom_html = f"""
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); white-space: pre-wrap; font-size: 16px; line-height: 1.6; margin-bottom: 15px;">
+{st.session_state.optimized_result}
+                </div>
+                <button onclick="navigator.clipboard.writeText(`{escaped_text}`); this.innerText='✅ Copied!';" style="background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 14px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);">
+                    📋 Copy to Clipboard
+                </button>
+                """
+                st.markdown(custom_html, unsafe_allow_html=True)
 
                 dl_col1, dl_col2, dl_col3 = st.columns(3)
                 with dl_col1:
