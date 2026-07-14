@@ -33,23 +33,23 @@ Instructions:
 
 JSON Format:
 
-{
+{{
     "optimized_prompt": "...",
 
-    "quality": {
+    "quality": {{
         "overall": 90,
         "clarity": 92,
         "specificity": 88,
         "context": 91,
         "structure": 90
-    },
+    }},
 
     "suggestions": [
         "...",
         "...",
         "..."
     ]
-}
+}}
 
 Rules:
 - Return ONLY JSON.
