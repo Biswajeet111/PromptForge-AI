@@ -1,1 +1,7 @@
-timestamp,original_prompt,optimized_prompt,task_type,tone,detail_level
+timestamp,original_prompt,optimized_prompt,task_type,tone,detail_level,favorite
+2026-07-14 17:42:56,Write about Artificial Intelligence,"Compose a concise LinkedIn post discussing the transformative impact of Artificial Intelligence in today's professional landscape.
+
+Ensure the post maintains a professional tone and includes:
+- An engaging hook to capture the audience's attention.
+- A clear call to action (CTA) to encourage comments or further discussion.
+- A selection of relevant hashtags for optimal visibility.",General,Professional,Short,False

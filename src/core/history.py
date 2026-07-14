@@ -16,7 +16,8 @@ def initialize_history():
             "optimized_prompt",
             "task_type",
             "tone",
-            "detail_level"
+            "detail_level",
+            "favorite"
         ])
         df.to_csv(HISTORY_FILE, index=False)
 
@@ -33,7 +34,8 @@ def save_prompt(original, optimized, task, tone, detail):
         "optimized_prompt": optimized,
         "task_type": task,
         "tone": tone,
-        "detail_level": detail
+        "detail_level": detail,
+        "favorite": False
     }
 
     df = pd.read_csv(HISTORY_FILE)
@@ -48,7 +50,11 @@ def load_history():
     Load prompt history.
     """
     initialize_history()
-    return pd.read_csv(HISTORY_FILE)
+    df = pd.read_csv(HISTORY_FILE)
+    if "favorite" not in df.columns:
+        df["favorite"] = False
+        df.to_csv(HISTORY_FILE, index=False)
+    return df
 
 
 def clear_history():
@@ -63,7 +69,18 @@ def clear_history():
         "optimized_prompt",
         "task_type",
         "tone",
-        "detail_level"
+        "detail_level",
+        "favorite"
     ])
 
     df.to_csv(HISTORY_FILE, index=False)
+
+def toggle_favorite(timestamp):
+    """
+    Toggle the favorite status of a prompt history item.
+    """
+    df = load_history()
+    if timestamp in df["timestamp"].values:
+        current_status = df.loc[df["timestamp"] == timestamp, "favorite"].values[0]
+        df.loc[df["timestamp"] == timestamp, "favorite"] = not current_status
+        df.to_csv(HISTORY_FILE, index=False)
