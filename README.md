@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="assets/logo.png" alt="PromptForge AI Logo" width="150" style="border-radius: 20px; margin-bottom: 20px;"/>
   <h1>🚀 PromptForge AI</h1>
   <p><b>AI-Powered Prompt Optimization Studio</b></p>
   <p><i>Supercharge your prompt engineering with Google Gemini API & Streamlit</i></p>
