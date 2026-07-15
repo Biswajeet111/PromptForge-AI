@@ -12,7 +12,7 @@
 **PromptForge AI** is a professional-grade prompt engineering workspace. It takes your raw ideas and transforms them into highly effective, structured, and optimized prompts tailored to specific tasks and tones. Equipped with a **Prompt Quality Analyzer**, it not only optimizes your prompts but also teaches you how to write better ones by evaluating clarity, structure, and context.
 
 <div align="center">
-  <img src="assets/home.png.png" alt="PromptForge AI Home Screen" style="border-radius: 12px; max-width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-top: 15px; margin-bottom: 20px;"/>
+  <img src="assets/home.png" alt="PromptForge AI Home Screen" style="border-radius: 12px; max-width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-top: 15px; margin-bottom: 20px;"/>
 </div>
 
 ## ✨ Key Features
@@ -23,6 +23,13 @@
 - 🔍 **Advanced History (search + filter + favorites)**: Never lose a prompt again. Smart history saves automatically with instant refresh.
 - 📊 **Prompt Comparison (Before vs After)**: A dedicated color-coded Diff viewer to see exactly what the AI changed.
 - ⚙️ **Customization**: Configure Task Type, Tone, Detail Level, and use predefined Templates.
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="assets/optimized prompt.png" alt="Optimized Prompt" style="border-radius: 12px; max-width: 48%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin: 1%;"/>
+  <img src="assets/result.png" alt="Result Comparison" style="border-radius: 12px; max-width: 48%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin: 1%;"/>
+</div>
 
 ## 🛠️ Tech Stack
 
