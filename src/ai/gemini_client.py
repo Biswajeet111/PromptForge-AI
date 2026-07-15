@@ -61,3 +61,37 @@ def analyze_prompt_quality(prompt: str) -> dict:
             "missing_information": [],
             "better_formatting_tips": []
         }
+
+def score_ai_output(prompt: str, output: str) -> dict:
+    """
+    Scores the AI's output based on Clarity and Relevance to the prompt.
+    """
+    score_prompt = f"""
+    Evaluate the following AI output based on how well it answers the provided prompt.
+    Score the output on Clarity and Relevance on a scale of 0 to 100.
+    
+    Provide a JSON response with the following schema:
+    {{
+        "clarity": <int 0-100>,
+        "relevance": <int 0-100>
+    }}
+    
+    Original Prompt:
+    {prompt}
+    
+    AI Output:
+    {output}
+    """
+    try:
+        response = model.generate_content(
+            score_prompt,
+            generation_config=genai.GenerationConfig(
+                response_mime_type="application/json",
+            )
+        )
+        return json.loads(response.text)
+    except Exception as e:
+        return {
+            "clarity": 0,
+            "relevance": 0
+        }
